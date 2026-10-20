@@ -1,0 +1,19 @@
+name: Next.js DevOps Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  check-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 1. Docker Build Check
+        run: docker build -t next-app .
+
+      - name: 2. Build Next.js Check
+        run: |
+          npm ci
+          npm run build
